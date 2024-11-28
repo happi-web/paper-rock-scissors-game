@@ -92,6 +92,25 @@ function playRound(humanChoice, computerChoice) {
 
     console.log(`Scores -> You: ${humanScore}, Computer: ${computerScore}`);
 }
-let humanChoice = getHumanChoice()
-let computerChoice = getComputerChoice()
-playRound(humanChoice, computerChoice);
+
+function playGame(rounds) 
+{
+    for (let i = 0; i < rounds; i++) {
+        console.log(`Round ${i + 1}`)
+        let humanChoice = getHumanChoice()
+        let computerChoice = getComputerChoice()
+        playRound(humanChoice, computerChoice);
+    }
+    console.log("Game Over!")
+    if (humanScore > computerScore)
+    {
+        console.log("Congratulations! You win the game.")
+    }else if (computerScore > humanScore)
+    {
+        console.log("Computer Wins the game better luck next time")
+    }else{
+        console.log("It's a tie")
+    }
+    
+}
+playGame(5)
