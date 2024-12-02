@@ -27,6 +27,7 @@ paper.addEventListener("click", () => handleHumanChoice("paper"));
 scissors.addEventListener("click", () => handleHumanChoice("scissors"));
 rock.addEventListener("click", () => handleHumanChoice("rock"));
 
+
 // Reset button functionality
 resetButton.addEventListener("click", () => {
     humanScore = 0;
@@ -43,6 +44,7 @@ resetButton.addEventListener("click", () => {
 function handleHumanChoice(humanChoice) {
     const computerChoice = getComputerChoice(); // Generate a new computer choice
     playRound(humanChoice, computerChoice); // Play the round
+    
 }
 
 // Function to play a single round
@@ -65,6 +67,7 @@ function playRound(humanChoice, computerChoice) {
         resultSpan.textContent = `It's a tie! You both chose ${humanChoice}`;
     }
     console.log(computerChoice);
+    resultSpan.setAttribute("style", "color:blue; font-size:24px; background-color:white; padding:10px; border-radius:10px;");
     // Update scores
     humanScoreSpan.textContent = humanScore;
     computerScoreSpan.textContent = computerScore;
@@ -73,7 +76,7 @@ function playRound(humanChoice, computerChoice) {
     if (humanScore === 5 || computerScore === 5) {
         const winnerMessage = humanScore === 5 ? "You win the game!" : "Computer wins the game!";
         resultSpan.textContent = winnerMessage;
-
+        resultSpan.setAttribute("style", "color:blue; font-size:24px; background-color:white; padding:10px; border-radius:10px;")
         // Disable buttons after the game ends
         document.querySelectorAll(".choice").forEach(button => {
             button.disabled = true;

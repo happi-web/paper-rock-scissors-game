@@ -4,22 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Rock Paper Scissors Console Game</h1>
-    <span></span>
-    <button id="rock" class="choice">Rock</button>
-    <button id="paper" class="choice">Paper</button>
-    <button id="scissors" class="choice">Scissors</button>
-    <span id="result"></span>
-    <p>Human Score: <span id="human-score">0</span></p>
-    <p>Computer Score: <span id="computer-score">0</span></p>
+    <div class="section">
+        <h1>Rock Paper Scissors Game</h1>
+        <span></span>
+        <div class="choices">
+            <button id="rock" class="choice">Rock</button>
+            <button id="paper" class="choice">Paper</button>
+            <button id="scissors" class="choice">Scissors</button>
+        </div>
 
-    <span id="human-choice"></span>
-    <span id="result"></span>
-    <span id="computer-score"></span>
-    <span id="human-score"></span>
-    <button id="reset">Reset Game</button>
+        <span id="result"></span>
+        <div class="scores">
+            <p>Human Score: <span id="human-score">0</span></p>
+            <p>Computer Score: <span id="computer-score">0</span></p>
+        </div>
+        <span id="human-choice"></span>
+        <span id="result"></span>
+        <span id="computer-score"></span>
+        <span id="human-score"></span>
+        <button id="reset">Reset Game</button>
+    </div>
+
     <script src="game.js"></script>
 </body>
 </html>
