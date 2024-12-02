@@ -1,116 +1,82 @@
-//This game will be played between the computer and me
-//So it will have three functions 
-//1. The computer function
-//2. The players function
-//3. The round
+let humanScore = 0;
+let computerScore = 0;
 
+// DOM elements
+const paper = document.querySelector("#paper");
+const scissors = document.querySelector("#scissors");
+const rock = document.querySelector("#rock");
+const humanScoreSpan = document.querySelector("#human-score");
+const computerScoreSpan = document.querySelector("#computer-score");
+const resultSpan = document.querySelector("#result");
+const resetButton = document.querySelector("#reset");
 
-let humanScore = 0
-let computerScore = 0
-/*
-The computer function algorithm
-1. Create a new function named getComputerChoice
-2. Inside getComputerChoice create a variable called randomNumber and generate a ramdom number
-3. Use the if else statement
-4. If the number is less than 1/3, return "rock".
-5. If the number is between 1/3 and 2/3, return "paper".
-6. Otherwise, return "scissors".
-7. Test the code by invoking the function using console.log
-*/
-function getComputerChoice(params) {
-    let randomNumber = Math.random()
-    if (randomNumber < 1/3) 
-    {
-        return "rock"
-    } else if(randomNumber < 2/3) 
-    {
-        return "paper"
-    }else
-    {
-        return "scissors"
-    }
-}
-console.log(getComputerChoice())
-
-/*
-The players function algorithm
-1. create a new function named getHumanChoice
-2. use the prompt to get a choice from the user
-3. Use the if else statement to compare the choice the user has given with the choices
-and return the choices
-4. Test on the console
-*/
-
-function getHumanChoice(params) {
-    let choice = prompt("Enter your choice (rock, paper, scissors): ").toLowerCase()
-    if (choice === "rock")
-    {
-        return "rock"
-    }else if (choice === "paper")
-    {
-        return "paper"
-    }else
-    {
-        return "scissors"
+// Function to get a random computer choice
+function getComputerChoice() {
+    let randomNumber = Math.random();
+    if (randomNumber < 1 / 3) {
+        return "rock";
+    } else if (randomNumber < 2 / 3) {
+        return "paper";
+    } else {
+        return "scissors";
     }
 }
 
-/*
-The Single Round Logic
-1. create a new function named playRound
-2. define two parameters for playRound: humanChoice and computerChoice
-3. convert humanChoice to lowecase
-4. use if else statement for humanChoice and computerChoice
-If humanChoice == "rock" and computerChoice == "scissors", 
-or humanChoice == "scissors" and computerChoice == "paper", 
-or humanChoice == "paper" and computerChoice == "rock", 
-increment the humanScore, and log "You win! <humanChoice> beats <computerChoice>"
-5 increament there scores
-*/
+// Event listeners for human choices
+paper.addEventListener("click", () => handleHumanChoice("paper"));
+scissors.addEventListener("click", () => handleHumanChoice("scissors"));
+rock.addEventListener("click", () => handleHumanChoice("rock"));
 
+// Reset button functionality
+resetButton.addEventListener("click", () => {
+    humanScore = 0;
+    computerScore = 0;
+    humanScoreSpan.textContent = humanScore;
+    computerScoreSpan.textContent = computerScore;
+    resultSpan.textContent = "Game reset. Start playing!";
+    document.querySelectorAll(".choice").forEach(button => {
+        button.disabled = false;
+    });
+});
+
+// Function to handle human choice and play a round
+function handleHumanChoice(humanChoice) {
+    const computerChoice = getComputerChoice(); // Generate a new computer choice
+    playRound(humanChoice, computerChoice); // Play the round
+}
+
+// Function to play a single round
 function playRound(humanChoice, computerChoice) {
-    humanChoice = humanChoice.toLowerCase(); // Ensure input is lowercase
-    computerChoice = computerChoice.toLowerCase(); // Ensure computer's choice is lowercase
-
     if (
         (humanChoice === "rock" && computerChoice === "scissors") ||
         (humanChoice === "scissors" && computerChoice === "paper") ||
         (humanChoice === "paper" && computerChoice === "rock")
     ) {
         humanScore++;
-        console.log(`You win! ${humanChoice} beats ${computerChoice}`);
+        resultSpan.textContent = `You win! ${humanChoice} beats ${computerChoice}`;
     } else if (
         (computerChoice === "rock" && humanChoice === "scissors") ||
         (computerChoice === "scissors" && humanChoice === "paper") ||
         (computerChoice === "paper" && humanChoice === "rock")
     ) {
         computerScore++;
-        console.log(`Computer wins! ${computerChoice} beats ${humanChoice}`);
+        resultSpan.textContent = `Computer wins! ${computerChoice} beats ${humanChoice}`;
     } else {
-        console.log(`It's a tie! You both chose ${humanChoice}`);
+        resultSpan.textContent = `It's a tie! You both chose ${humanChoice}`;
     }
+    console.log(computerChoice);
+    // Update scores
+    humanScoreSpan.textContent = humanScore;
+    computerScoreSpan.textContent = computerScore;
 
-    console.log(`Scores -> You: ${humanScore}, Computer: ${computerScore}`);
-}
+    // Check for game winner
+    if (humanScore === 5 || computerScore === 5) {
+        const winnerMessage = humanScore === 5 ? "You win the game!" : "Computer wins the game!";
+        resultSpan.textContent = winnerMessage;
 
-function playGame(rounds) 
-{
-    for (let i = 0; i < rounds; i++) {
-        console.log(`Round ${i + 1}`)
-        let humanChoice = getHumanChoice()
-        let computerChoice = getComputerChoice()
-        playRound(humanChoice, computerChoice);
+        // Disable buttons after the game ends
+        document.querySelectorAll(".choice").forEach(button => {
+            button.disabled = true;
+        });
     }
-    console.log("Game Over!")
-    if (humanScore > computerScore)
-    {
-        console.log("Congratulations! You win the game.")
-    }else if (computerScore > humanScore)
-    {
-        console.log("Computer Wins the game better luck next time")
-    }else{
-        console.log("It's a tie")
-    }
-    
 }
-playGame(5)
